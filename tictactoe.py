@@ -28,7 +28,9 @@ def print_grid(clear=True):
             pass
     else:
         print()
-
+    print()
+    print()
+    print()
     print("\t\t\t_{%s}_|_{%s}_|_{%s}_" % (graph[0][0], graph[0][1], graph[0][2]))
     print("\t\t\t_{%s}_|_{%s}_|_{%s}_" % (graph[1][0], graph[1][1], graph[1][2]))
     print("\t\t\t_{%s}_|_{%s}_|_{%s}_" % (graph[2][0], graph[2][1], graph[2][2]))
@@ -38,17 +40,15 @@ def print_grid(clear=True):
 def print_instructions(players):
     print('*'*60)
     print("%s is [X], %s is [O]. Each player will take a turn." % (players[0], players[1]))
-    print("The Tic Tac Toe board is a 3x3 square, it looks like this:")
-    print("The game is broken up into a grid pattern, as follows:")
+    print("The Tic Tac Toe board is a 3x3 square, the game is broken up into a grid pattern, as follows:")
     print_grid(False)
     print("To place your mark, just type a number [1-9]")
     print('*'*60)
-    print("Press any key to continue: ")
-    input()
+    response = input("Press any key to continue: ")
+
 
 
 def set_mark(index, value):
-    # print("Player %s chose %s" % (index, value))
     internal_index = 0
     if index in range(1, 4):
         graph_index = 0
@@ -61,7 +61,8 @@ def set_mark(index, value):
         internal_index = index - 7
 
     if graph[graph_index][internal_index] != index:
-        print("This box has already been selected, please select another")
+        response = input("This box has already been selected, please select another [Enter to continue]:")
+
         return False
     else:
         graph[graph_index][internal_index] = value
