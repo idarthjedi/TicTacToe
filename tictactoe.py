@@ -47,9 +47,41 @@ def print_instructions(players):
     response = input("Press any key to continue: ")
 
 
+def strip(value):
+    if str(value).find("91mO") > 0:
+        return "O"
+    elif str(value).find("92mX") > 0:
+        return "X"
+    else:
+        return ""
+
+
+def check_winner():
+    # Count across each X axis
+    if (strip(graph[0][0]) == "X" and strip(graph[0][1]) == "X" and strip(graph[0][2]) == "X") \
+            or (strip(graph[1][0]) == "X" and strip(graph[1][1]) == "X" and strip(graph[1][2]) == "X") \
+            or (strip(graph[2][0]) == "X" and strip(graph[2][1]) == "X" and strip(graph[2][2]) == "X") \
+            or (strip(graph[0][0]) == "X" and strip(graph[1][0]) == "X" and strip(graph[2][0]) == "X") \
+            or (strip(graph[0][1]) == "X" and strip(graph[1][1]) == "X" and strip(graph[2][1]) == "X") \
+            or (strip(graph[0][2]) == "X" and strip(graph[1][2]) == "X" and strip(graph[2][2]) == "X") \
+            or (strip(graph[0][0]) == "X" and strip(graph[1][1]) == "X" and strip(graph[2][2]) == "X") \
+            or (strip(graph[0][2]) == "X" and strip(graph[1][1]) == "X" and strip(graph[2][0]) == "X"):
+                return 0
+    elif (strip(graph[0][0]) == "O" and strip(graph[0][1]) == "O" and strip(graph[0][2]) == "O") \
+            or (strip(graph[1][0]) == "O" and strip(graph[1][1]) == "O" and strip(graph[1][2]) == "O") \
+            or (strip(graph[2][0]) == "O" and strip(graph[2][1]) == "O" and strip(graph[2][2]) == "O") \
+            or (strip(graph[0][0]) == "O" and strip(graph[1][0]) == "O" and strip(graph[2][0]) == "O") \
+            or (strip(graph[0][1]) == "O" and strip(graph[1][1]) == "O" and strip(graph[2][1]) == "O") \
+            or (strip(graph[0][2]) == "O" and strip(graph[1][2]) == "O" and strip(graph[2][2]) == "O") \
+            or (strip(graph[0][0]) == "O" and strip(graph[1][1]) == "O" and strip(graph[2][2]) == "O") \
+            or (strip(graph[0][2]) == "O" and strip(graph[1][1]) == "O" and strip(graph[2][0]) == "O"):
+                return 1
+    else:
+        return -1
+
 
 def set_mark(index, value):
-    internal_index = 0
+
     if index in range(1, 4):
         graph_index = 0
         internal_index = index - 1
@@ -110,11 +142,19 @@ def main():
                 successful = set_mark(player_move, player_mark)
 
         # Check to see if a player has won
+        winner = check_winner()
+        if winner == 0:
+            print_grid(False)
+            print("Congratulations %s" % players[0])
+            break
+        elif winner == 1:
+            print_grid(False)
+            print("Congratulations %s" % players[1])
+            break
+        else:
+            print_grid()
+
         # move to the next
-
-        pass
-
-    print_grid()
 
 
 main()
