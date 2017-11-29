@@ -1,5 +1,10 @@
 import os
+import sys
 from sys import platform
+
+if sys.version_info[0] < 3:
+    print("This script requires Python version 3 or greater!")
+    sys.exit(1)
 
 graph = [None, None, None]
 graph[0] = [i for i in range(1, 4)]
